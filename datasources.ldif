@@ -1,0 +1,4 @@
+dn: ou=DataSources,dc=ashby,dc=isdc,dc=unige,dc=ch
+ou: DataSources
+objectClass: organizationalUnit
+objectClass: top
