@@ -1,0 +1,30 @@
+#/*****************************************************************************
+#       File Name : genpixels.par
+#  $Id: genpixels.par,v 1.5 2007/12/07 11:20:38 oneel Exp $
+#  $Log: genpixels.par,v $
+#  Revision 1.5  2007/12/07 11:20:38  oneel
+#  Just before removing some code to write fits file.
+#
+#  Revision 1.4  2007/06/26 15:36:00  oneel
+#  More work, this time we have the loop over all images in the input
+#  file, and then make the linked list (though don't read keywords yet)
+#
+#  Revision 1.3  2007/06/25 19:05:56  oneel
+#  Skeleton
+#
+#  Revision 1.2  2007/06/25 18:48:25  oneel
+#  Skeleton
+#
+#  Revision 1.1  2007/06/25 18:31:46  oneel
+#  First version
+#
+#*****************************************************************************/
+inIMG,s,q,,,,"Input Image or Index of Images"
+lowL,r,q,,,,"Low L"
+highL,r,q,,,,"High L"
+lowB,r,q,,,,"Low B"
+highB,r,q,,,,"High B"
+outputArea,s,q,,,,"Output area to write"
+referenceImage,s,q,,,,"Reference Image"
+overSampling,i,q,3,1,10,"Factor of oversampling of input image before remapping"
+LDAPQuery,s,q,,,,"Query LDAP for images to process. This string should be the search string."
