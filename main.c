@@ -3,14 +3,11 @@
 
 /* Server name: */
 #define HOST "ashby.isdc.unige.ch"
-/* The user and passwd to bind to the server with: */
-#define BINDDN "cn=Manager,dc=ashby,dc=isdc,dc=unige,dc=ch"
-#define BINDPASSWD "dummy+999"
 
 /* Parameters for searches: */
 #define BASEDN "ou=Datasources,dc=ashby,dc=isdc,dc=unige,dc=ch"
 #define SCOPE LDAP_SCOPE_SUBTREE
-#define QUERY_FILTER "(&(objectClass=integralDS))"
+#define QUERY_FILTER "(&(objectClass=integralDS)(cn=0780)(dsInstrument=isgri))"
 
 int main (int argc, const char * argv[]) {
 	
@@ -31,12 +28,12 @@ int main (int argc, const char * argv[]) {
 	ldap_set_option(handle, LDAP_OPT_PROTOCOL_VERSION, &ldap_version);	
 
 	/* Bind to the server: */
-	ldp_result = ldap_simple_bind_s(handle,BINDDN,BINDPASSWD);
+	ldp_result = ldap_simple_bind_s(handle,NULL,NULL);
 	if ( ldp_result != LDAP_SUCCESS ) {
 		fprintf(stderr, "ldap_simple_bind_s: %s\n\n", ldap_err2string(ldp_result));
 		return(1);
 	} else {
-		printf( "Bind to %s:%d as DN %s successful.\n",HOST,LDAP_PORT,BINDDN);
+		printf( "Bind to %s:%d as anonymous successful.\n",HOST,LDAP_PORT);
 	}
 	
 	/* Run a query: */
