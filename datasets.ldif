@@ -1,0 +1,19 @@
+dn: ou=Datasets,dc=ashby,dc=isdc,dc=unige,dc=ch
+ou: Datasets
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=ISGRI,ou=Datasets,dc=ashby,dc=isdc,dc=unige,dc=ch
+ou: ISGRI
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=JEMX,ou=Datasets,dc=ashby,dc=isdc,dc=unige,dc=ch
+ou: JEMX
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=SPIACS,ou=Datasets,dc=ashby,dc=isdc,dc=unige,dc=ch
+ou: SPIACS
+objectClass: organizationalUnit
+objectClass: top
