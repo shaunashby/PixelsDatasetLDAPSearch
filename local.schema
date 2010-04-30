@@ -1,22 +1,13 @@
 ###
 ### OID: 1.3.6.1.4.1.14402.999
 ###
-### dn: cn=0365,ou=compute-0-0,ou=DataSources,dc=ashby,dc=isdc,dc=unige,dc=ch
-### objectClass: integralDS
-### cn: 0365
-### dsimgPath: /state/partition1/binko/osa9_test/obs/0365.000/ssii_036500020010/scw/036500020010.001/isgri_sky_ima.fits.gz
-### dsInstrument: isgri
-### dsRev: 0365
-### dsSize: 110
-### dsStatus: 999
-### dsComplete: FALSE
 
 attributetype ( 1.3.6.1.4.1.14402.999.1.1 NAME 'dsimgPath'
         DESC 'The path to an input image file.'
 	EQUALITY caseIgnoreIA5Match
 	SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
 
-attributetype ( 1.3.6.1.4.1.14402.999.1.2 NAME 'dsInstrument'
+attributetype ( 1.3.6.1.4.1.14402.999.1.2 NAME 'dsHost'
         DESC 'The instrument for this dataset.'
 	EQUALITY caseIgnoreIA5Match
 	SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
@@ -43,5 +34,5 @@ attributetype ( 1.3.6.1.4.1.14402.999.1.6 NAME 'dsComplete'
 
 objectclass ( 1.3.6.1.4.1.14402.999.2.1 NAME 'integralDS' SUP top
         DESC 'INTEGRAL data source object class.'
-	MUST ( dsRev $ dsInstrument $ dsimgPath $ dsComplete )
+	MUST ( dsRev $ dsHost $ dsimgPath $ dsComplete )
 	MAY ( cn $ dsSize $ dsStatus ) )
