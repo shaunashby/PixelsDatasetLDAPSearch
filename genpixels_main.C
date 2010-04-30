@@ -50,7 +50,7 @@ First version
 #ifdef USE_LDAP_V3
 #define HOST "ashby.isdc.unige.ch"
 /* Parameters for searches: */
-#define BASEDN "ou=Datasources,dc=ashby,dc=isdc,dc=unige,dc=ch"
+#define BASEDN "ou=Datasets,dc=ashby,dc=isdc,dc=unige,dc=ch"
 #define SCOPE LDAP_SCOPE_SUBTREE
 
 extern "C" {

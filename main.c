@@ -5,9 +5,9 @@
 #define HOST "ashby.isdc.unige.ch"
 
 /* Parameters for searches: */
-#define BASEDN "ou=Datasources,dc=ashby,dc=isdc,dc=unige,dc=ch"
+#define BASEDN "ou=ISGRI,ou=Datasets,dc=ashby,dc=isdc,dc=unige,dc=ch"
 #define SCOPE LDAP_SCOPE_SUBTREE
-#define QUERY_FILTER "(&(objectClass=integralDS)(cn=0780)(dsInstrument=isgri))"
+#define QUERY_FILTER "(&(objectClass=integralDS)(dsHost=compute-0-5))"
 
 int main (int argc, const char * argv[]) {
 	
