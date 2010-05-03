@@ -50,7 +50,6 @@ First version
 #ifdef USE_LDAP_V3
 #define HOST "ashby.isdc.unige.ch"
 /* Parameters for searches: */
-#define BASEDN "ou=Datasets,dc=ashby,dc=isdc,dc=unige,dc=ch"
 #define SCOPE LDAP_SCOPE_SUBTREE
 
 extern "C" {
@@ -101,11 +100,14 @@ int main (int argc, char **argv)
  if(status == ISDC_OK){ status = PILGetInt("overSampling", &overSampling);}
 
 #ifdef USE_LDAP_V3
- char LDAPQuery[PIL_LINESIZE] = ""; /* "(&(objectClass=integralDS)(cn=0780)(dsInstrument=isgri))" *
+ char LDAPBaseDN[PIL_LINESIZE] = ""; /* "ou=ISGRI/JEMX/SPIACS,ou=Datasets,dc=ashby,dc=isdc,dc=unige,dc=ch"      */
+ char LDAPQuery[PIL_LINESIZE] = "";  /* "(&(objectClass=integralDS)(cn=0685)(dsHost=compute-0-5))"              */
+
  /* For LDAP queries */
+ if(status == ISDC_OK){ status = PILGetString("LDAPBaseDN",LDAPBaseDN);}
  if(status == ISDC_OK){ status = PILGetString("LDAPQuery",LDAPQuery);}
  
- if (LDAPQuery != "") {
+ if (LDAPQuery != "" && LDAPBaseDN != "") {
    /* Use LDAP to get the list of image files */
    int ldp_result=0;
    LDAPMessage *result, *e;
@@ -113,6 +115,7 @@ int main (int argc, char **argv)
    char **imagefiles;
    
    RILlogMessage(NULL,Log_1, "Using LDAP search %s:%s to obtain image list.",HOST,LDAPQuery);
+   RILlogMessage(NULL,Log_1, "LDAP base DN for search = %s.",HOST,LDAPBaseDN);
 
    /* Set up the connection to the LDAP server: */
    LDAP *handle;
@@ -133,16 +136,16 @@ int main (int argc, char **argv)
    }
 
    /* Run a query: */
-   ldp_result = ldap_search_ext_s(handle,BASEDN,SCOPE,LDAPQuery, NULL, 0, NULL, NULL, NULL, 1000, &result);
+   ldp_result = ldap_search_ext_s(handle,LDAPBaseDN,SCOPE,LDAPQuery, NULL, 0, NULL, NULL, NULL, 1000, &result);
 
    if ( ldp_result != LDAP_SUCCESS ) {
-     RILlogMessage(NULL,Error_1,"LDAP search \"%s\", DN=\"%s\" failed: ldap_search_ext_s: %s",LDAPQuery,BASEDN,ldap_err2string(ldp_result));
+     RILlogMessage(NULL,Error_1,"LDAP search \"%s\", DN=\"%s\" failed: ldap_search_ext_s: %s",LDAPQuery,LDAPBaseDN,ldap_err2string(ldp_result));
      CommonExit(-100000);
    }
    
    int n_entries = ldap_count_entries(handle, result);
 
-   RILlogMessage(NULL,Log_1, "Search using base DN \"%s\", filter \"%s\" successful. %d entries found.",BASEDN,LDAPQuery,n_entries);
+   RILlogMessage(NULL,Log_1, "Search using base DN \"%s\", filter \"%s\" successful. %d entries found.",LDAPBaseDN,LDAPQuery,n_entries);
 
    for ( e = ldap_first_entry(handle,result); e != NULL; e = ldap_next_entry(handle,e) ) {
      /* Print the matching DN (contains host info) */
